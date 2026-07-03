@@ -1,4 +1,4 @@
-import { Github, Instagram, Linkedin, Send, CheckCircle2, Mail, Twitter } from 'lucide-react';
+import { Github, Instagram, Linkedin, Send, CheckCircle2, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
