@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import { Award } from 'lucide-react';
 
 const CERTIFICATES = [
-  { id: 1, title: 'Coursera Certificate 1', image: '/Coursera7DUQDS6SWTS6.pdf', delay: 0.2, issuer: 'Coursera' },
-  { id: 2, title: 'Certificate of Completion', image: '/Certificate-Alan.pdf', delay: 0.1, issuer: 'NorBit Solutions' },
-  { id: 3, title: 'Coursera Certificate 2', image: '/CourseraP6DR2076173I.pdf', delay: 0.3, issuer: 'Coursera' },
+  { id: 1, title: 'Coursera Certificate 1', image: `${import.meta.env.BASE_URL}Coursera7DUQDS6SWTS6.pdf`, delay: 0.2, issuer: 'Coursera' },
+  { id: 2, title: 'Certificate of Completion', image: `${import.meta.env.BASE_URL}Certificate-Alan.pdf`, delay: 0.1, issuer: 'NorBit Solutions' },
+  { id: 3, title: 'Coursera Certificate 2', image: `${import.meta.env.BASE_URL}CourseraP6DR2076173I.pdf`, delay: 0.3, issuer: 'Coursera' },
 ];
 
 export default function Certificates() {

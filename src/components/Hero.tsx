@@ -134,7 +134,7 @@ export default function Hero() {
         >
           <div className="relative w-full h-full">
             <img
-              src="/hero-portrait.png"
+              src={`${import.meta.env.BASE_URL}hero-portrait.png`}
               alt="Alan Sherhan K P"
               className="w-full h-auto object-cover object-top filter brightness-[0.94] contrast-[1.06] max-h-[62vh] md:max-h-[75vh]"
             />
@@ -234,7 +234,7 @@ export default function Hero() {
                   <span className="text-white/40">/</span> LinkedIn
                 </a>
                 <a
-                  href="/Resume.pdf"
+                  href={`${import.meta.env.BASE_URL}Resume.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-brand-mint transition-colors flex items-center gap-1"
@@ -294,7 +294,7 @@ export default function Hero() {
 
               <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap gap-4">
                 <a
-                  href="/Resume.pdf"
+                  href={`${import.meta.env.BASE_URL}Resume.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-brand-mint text-gray-950 font-semibold rounded-full text-sm hover:opacity-90 transition-opacity flex items-center gap-2"

@@ -100,7 +100,7 @@ export default function Navigation() {
                   <div className="flex flex-wrap gap-4 text-sm font-medium">
                     <a href="https://github.com/Alansherhan" target="_blank" rel="noopener noreferrer" className="hover:text-brand-mint transition-colors">/ GitHub</a>
                     <a href="https://linkedin.com/in/alansherhan" target="_blank" rel="noopener noreferrer" className="hover:text-brand-mint transition-colors">/ LinkedIn</a>
-                    <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-brand-mint transition-colors">/ Resume</a>
+                    <a href={`${import.meta.env.BASE_URL}Resume.pdf`} target="_blank" rel="noopener noreferrer" className="hover:text-brand-mint transition-colors">/ Resume</a>
                   </div>
                 </div>
               </div>
