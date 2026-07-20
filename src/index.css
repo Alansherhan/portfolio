@@ -1,16 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-bg: #0B0E14; /* Deep Charcoal */
-  --color-brand-primary: #00D2FF; /* Electric Blue */
-  --color-brand-secondary: #9D50BB; /* Nebula Purple */
+  --color-brand-bg: #0A0D0C; /* Dark Slate Emerald */
+  --color-brand-card: #121815; /* Card Background */
+  --color-brand-primary: #4EFE88; /* Neon Mint Green */
+  --color-brand-mint: #4EFE88; /* Neon Mint Green */
+  --color-brand-secondary: #22C55E; /* Emerald Accent */
   --font-sans: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', 'Syne', sans-serif;
+  --font-curve: 'Outfit', sans-serif;
   --font-mono: 'Fira Code', monospace;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -18,24 +22,48 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-brand-secondary);
-  border-radius: 5px;
+  background: #1a3628;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-brand-primary);
+  background: var(--color-brand-mint);
 }
 
 /* Base Styles */
 body {
   background-color: var(--color-brand-bg);
-  color: #F8FAFC; /* Light gray for readability */
+  color: #F8FAFC;
   overflow-x: hidden;
+  font-family: var(--font-sans);
 }
 
-/* Utilities for gradient text */
-@layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-secondary;
-  }
+/* Custom Utilities */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.text-mint {
+  color: var(--color-brand-mint);
+}
+
+.bg-mint {
+  background-color: var(--color-brand-mint);
+}
+
+.border-mint {
+  border-color: var(--color-brand-mint);
+}
+
+.glow-spotlight {
+  background: radial-gradient(circle at 50% 30%, rgba(78, 254, 136, 0.25) 0%, rgba(15, 50, 32, 0.2) 45%, transparent 70%);
+}
+
+.hero-canvas-border {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), inset 0 0 2px rgba(255, 255, 255, 0.05);
+}
+
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
 }
