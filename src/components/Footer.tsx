@@ -189,16 +189,15 @@ export default function Footer() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="footer-phone" className="block text-[10px] uppercase font-mono tracking-wider text-[#6B6B65] mb-2">Phone</label>
-                  <input
-                    type="tel"
-                    id="footer-phone"
-                    name="entry.2128175179"
-                    required
-                    className="w-full bg-[#E8E7E1] border border-black/[0.08] rounded-xl px-4 py-3 text-xs sm:text-sm text-[#0A0A0A] placeholder-[#9A9A93] focus:outline-none focus:border-black/30 focus:ring-1 focus:ring-black/20 transition-colors font-sans"
-                    placeholder="+91 1234567890"
-                  />
-                </div>
+                <label htmlFor="footer-phone" className="block text-[10px] uppercase font-mono tracking-wider text-[#6B6B65] mb-2">Phone <span className="normal-case font-sans tracking-normal opacity-60">(optional)</span></label>
+                <input
+                  type="tel"
+                  id="footer-phone"
+                  name="entry.2128175179"
+                  className="w-full bg-[#E8E7E1] border border-black/[0.08] rounded-xl px-4 py-3 text-xs sm:text-sm text-[#0A0A0A] placeholder-[#9A9A93] focus:outline-none focus:border-black/30 focus:ring-1 focus:ring-black/20 transition-colors font-sans"
+                  placeholder="+91 1234567890"
+                />
+              </div>
               </div>
 
               <div>
@@ -216,10 +215,10 @@ export default function Footer() {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-[#F0EFE9] bg-[#0A0A0A] hover:bg-[#1A1A1A] rounded-xl transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-[#F0EFE9] bg-[#0A0A0A] hover:bg-[#1A1A1A] rounded-xl transition-colors disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer shadow-sm"
               >
-                {status === 'loading' ? 'Sending...' : status === 'success' ? 'Message Sent!' : status === 'error' ? 'Error. Try Again.' : 'Send Message'}
-                <Send className="w-4 h-4" />
+                {status === 'loading' ? 'Sending…' : status === 'success' ? '✓ Message Sent!' : status === 'error' ? 'Error — Try Again' : 'Send Message'}
+                {status !== 'loading' && <Send className="w-4 h-4" />}
               </button>
             </form>
           </motion.div>

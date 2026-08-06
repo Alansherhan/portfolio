@@ -43,6 +43,7 @@ export default function Certificates() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ delay: cert.delay, duration: 0.6 }}
+              aria-label={`View ${cert.title} by ${cert.issuer}`}
               className={`group relative rounded-2xl sm:rounded-3xl overflow-hidden bg-[#F0EFE9] border border-black/[0.08] ${
                 i === 0 ? 'md:col-span-2 md:row-span-2' :
                 i === 1 ? 'md:row-span-2' : ''
@@ -66,14 +67,15 @@ export default function Certificates() {
                 )}
               </div>
 
-              {/* Hover / Touch Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/40 to-transparent opacity-60 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+              {/* Gradient overlay — subtle at rest, stronger on hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/80 via-[#0A0A0A]/20 to-transparent opacity-40 group-hover:opacity-90 transition-opacity duration-300 z-10" />
 
-              <div className="absolute bottom-0 left-0 w-full p-4 sm:p-6 translate-y-0 sm:translate-y-4 opacity-100 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100 transition-all duration-300 z-20">
-                <h3 className="text-lg sm:text-xl font-bold font-display text-[#F0EFE9] mb-0.5 sm:mb-1">{cert.title}</h3>
-                <p className="text-xs sm:text-sm text-[#4EFE88] font-medium">{cert.issuer}</p>
-                <div className="mt-3 sm:mt-4 inline-flex items-center text-[11px] sm:text-xs font-semibold text-[#0A0A0A] bg-[#F0EFE9] px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full shadow-lg">
-                  {cert.image.toLowerCase().endsWith('.pdf') ? 'View PDF' : 'View Image'}
+              {/* Always visible bottom info strip */}
+              <div className="absolute bottom-0 left-0 w-full p-4 sm:p-5 z-20">
+                <h3 className="text-sm sm:text-base font-bold font-display text-[#F0EFE9] mb-0.5 truncate">{cert.title}</h3>
+                <p className="text-[11px] sm:text-xs text-[#4EFE88] font-medium mb-2">{cert.issuer}</p>
+                <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-[#0A0A0A] bg-[#F0EFE9] px-3 py-1 rounded-full shadow opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200">
+                  {cert.image.toLowerCase().endsWith('.pdf') ? 'Open PDF ↗' : 'View Image ↗'}
                 </div>
               </div>
             </motion.a>

@@ -89,21 +89,29 @@ export default function Projects() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#6B6B65] hover:text-[#0A0A0A] transition-colors p-2 bg-black/[0.05] rounded-lg hover:bg-black/[0.1]"
-                    aria-label="Github repository"
+                    aria-label={`${project.title} GitHub repository`}
                   >
                     <Github className="w-4 h-4 sm:w-5 sm:h-5" />
                   </a>
                   {project.downloads.map((dl, idx) => (
                     <div key={idx} className="relative flex items-center justify-center">
-                      <a
-                        href={dl.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-[#0A0A0A] text-[#F0EFE9] rounded-lg text-[11px] sm:text-xs font-semibold hover:bg-[#1A1A1A] transition-colors"
-                      >
-                        <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        {dl.label}
-                      </a>
+                      {dl.url === '#' ? (
+                        <span className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-black/[0.08] text-[#6B6B65] rounded-lg text-[11px] sm:text-xs font-semibold cursor-not-allowed select-none" title="APK coming soon">
+                          <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                          Coming Soon
+                        </span>
+                      ) : (
+                        <a
+                          href={dl.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-[#0A0A0A] text-[#F0EFE9] rounded-lg text-[11px] sm:text-xs font-semibold hover:bg-[#1A1A1A] transition-colors"
+                          aria-label={`Download ${project.title} APK`}
+                        >
+                          <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                          {dl.label}
+                        </a>
+                      )}
                     </div>
                   ))}
                 </div>

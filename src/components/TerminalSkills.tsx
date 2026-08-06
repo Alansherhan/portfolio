@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const SKILLS = [
   'Flutter & Dart framework',
@@ -12,22 +12,41 @@ const SKILLS = [
 
 export default function TerminalSkills() {
   const [typingComplete, setTypingComplete] = useState(false);
-  const command = 'npx skills list --installed';
   const [displayedCommand, setDisplayedCommand] = useState('');
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
+  const command = 'npx skills list --installed';
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    let i = 0;
-    const intervalId = setInterval(() => {
-      setDisplayedCommand(command.slice(0, i));
-      i++;
-      if (i > command.length) {
-        clearInterval(intervalId);
-        setTimeout(() => setTypingComplete(true), 500);
-      }
-    }, 60);
+    if (isInView) {
+      // Reset and restart typing animation when section comes into view
+      setDisplayedCommand('');
+      setTypingComplete(false);
+      let i = 0;
 
-    return () => clearInterval(intervalId);
-  }, []);
+      timerRef.current = setInterval(() => {
+        setDisplayedCommand(command.slice(0, i));
+        i++;
+        if (i > command.length) {
+          clearInterval(timerRef.current!);
+          timeoutRef.current = setTimeout(() => setTypingComplete(true), 500);
+        }
+      }, 60);
+    } else {
+      // Clear when out of view
+      if (timerRef.current) clearInterval(timerRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      setDisplayedCommand('');
+      setTypingComplete(false);
+    }
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [isInView]);
 
   return (
     <section id="skills" className="py-16 md:py-24 relative overflow-hidden bg-[#F0EFE9] section-divider">
@@ -48,10 +67,11 @@ export default function TerminalSkills() {
         </motion.div>
 
         <motion.div
+          ref={sectionRef}
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
           className="rounded-2xl overflow-hidden border border-black/10 bg-[#1A1A1A] shadow-xl"
         >
           {/* Terminal Header */}

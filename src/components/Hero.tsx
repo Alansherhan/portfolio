@@ -82,16 +82,16 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.34 }}
           >
             <button
-              id="hero-call-cta"
+              id="hero-about-cta"
               onClick={() => setIsAboutOpen(true)}
               className="circle-cta w-28 h-28 sm:w-32 sm:h-32 flex flex-col items-center justify-center text-center gap-1 text-[#0A0A0A] hover:text-[#F0EFE9] group cursor-pointer"
               aria-label="Learn more about Alan"
             >
               <span className="text-[9px] font-mono tracking-widest uppercase text-[#6B6B65] group-hover:text-[#F0EFE9]/70 transition-colors leading-tight">
-                DESCRIBE YOUR<br />PROJECT
+                LEARN MORE<br />ABOUT ME
               </span>
               <span className="text-lg sm:text-xl font-bold font-display leading-tight group-hover:text-[#F0EFE9] transition-colors">
-                Call Alan
+                Who Am I?
               </span>
               <ArrowUpRight className="w-4 h-4 mt-0.5 text-[#0A0A0A] group-hover:text-[#F0EFE9] transition-colors" />
             </button>
@@ -124,7 +124,7 @@ export default function Hero() {
 
         {/* ====== RIGHT COLUMN: Stats ====== */}
         <div className="flex flex-col justify-center py-8 lg:py-12 lg:pl-8 xl:pl-12 order-3">
-          <div className="flex flex-row lg:flex-col gap-6 sm:gap-8 lg:gap-10 lg:items-end lg:text-right">
+          <div className="flex flex-row flex-wrap lg:flex-col gap-6 sm:gap-8 lg:gap-10 lg:items-end lg:text-right">
             {STATS.map((stat, i) => (
               <motion.div
                 key={stat.label}

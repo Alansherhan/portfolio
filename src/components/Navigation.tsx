@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowUpRight } from 'lucide-react';
 
@@ -13,6 +13,37 @@ const NAV_LINKS = [
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  // Track active section with IntersectionObserver
+  useEffect(() => {
+    const sectionIds = NAV_LINKS.map((l) => l.href.replace('#', ''));
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
+  // Close mobile menu on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -38,18 +69,32 @@ export default function Navigation() {
           </span>
         </a>
 
-        {/* Desktop: Inline horizontal nav links */}
-        <div className="hidden md:flex items-center gap-6 lg:gap-8">
-          {NAV_LINKS.slice(0, 5).map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => handleLinkClick(e, link.href)}
-              className="text-xs font-semibold tracking-widest uppercase text-[#0A0A0A]/60 hover:text-[#0A0A0A] transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
+        {/* Desktop: All nav links (was missing Certificates) */}
+        <div className="hidden md:flex items-center gap-4 lg:gap-6">
+          {NAV_LINKS.map((link) => {
+            const isActive = activeSection === link.href.replace('#', '');
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleLinkClick(e, link.href)}
+                className={`text-[11px] font-semibold tracking-widest uppercase transition-colors relative ${
+                  isActive
+                    ? 'text-[#0A0A0A]'
+                    : 'text-[#0A0A0A]/50 hover:text-[#0A0A0A]'
+                }`}
+              >
+                {link.name}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active-dot"
+                    className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0A0A0A]"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+              </a>
+            );
+          })}
         </div>
 
         {/* Desktop: "Get in touch" pill CTA */}
@@ -70,6 +115,7 @@ export default function Navigation() {
           onClick={() => setIsOpen(true)}
           className="md:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
           aria-label="Open navigation menu"
+          aria-expanded={isOpen}
         >
           <span className="w-6 h-0.5 bg-[#0A0A0A] rounded-full" />
           <span className="w-4 h-0.5 bg-[#0A0A0A] rounded-full" />
@@ -85,6 +131,9 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] bg-[#F0EFE9]/98 backdrop-blur-xl flex flex-col justify-between p-6 sm:p-8 overflow-y-auto max-h-[100dvh]"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
           >
             {/* Top drawer bar */}
             <div className="flex items-center justify-between border-b border-black/10 pb-5">
@@ -108,20 +157,25 @@ export default function Navigation() {
 
             {/* Links list */}
             <div className="flex flex-col gap-2 my-auto py-8">
-              {NAV_LINKS.map((link, i) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                  className="text-4xl sm:text-5xl font-bold font-display text-[#0A0A0A] hover:text-[#6B6B65] transition-colors flex items-center gap-3 group py-2"
-                >
-                  <span>{link.name}</span>
-                  <ArrowUpRight className="w-7 h-7 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 -translate-y-0.5 transition-all text-[#0A0A0A]" />
-                </motion.a>
-              ))}
+              {NAV_LINKS.map((link, i) => {
+                const isActive = activeSection === link.href.replace('#', '');
+                return (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleLinkClick(e, link.href)}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.06 }}
+                    className={`text-4xl sm:text-5xl font-bold font-display transition-colors flex items-center gap-3 group py-2 ${
+                      isActive ? 'text-[#0A0A0A]' : 'text-[#0A0A0A]/40 hover:text-[#0A0A0A]'
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    <ArrowUpRight className="w-7 h-7 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 -translate-y-0.5 transition-all text-[#0A0A0A]" />
+                  </motion.a>
+                );
+              })}
             </div>
 
             {/* Drawer bottom */}
