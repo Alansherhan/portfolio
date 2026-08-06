@@ -30,19 +30,19 @@ export default function TerminalSkills() {
   }, []);
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden bg-[#0A0D0C]">
-      <div className="max-w-4xl mx-auto px-6 lg:px-8">
+    <section id="skills" className="py-16 md:py-24 relative overflow-hidden bg-[#0A0D0C]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.96 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.7, ease: [0.215, 0.61, 0.355, 1] }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
           <h2 className="text-3xl md:text-5xl font-bold font-display text-white tracking-tight">
             Technical <span className="text-brand-mint">Skills</span>
           </h2>
-          <p className="mt-4 text-gray-400 font-sans text-sm md:text-base">
+          <p className="mt-3 sm:mt-4 text-gray-400 font-sans text-xs sm:text-sm md:text-base">
             Verified core competencies and tech stack
           </p>
         </motion.div>
@@ -55,32 +55,32 @@ export default function TerminalSkills() {
           className="rounded-2xl overflow-hidden border border-white/10 bg-[#111814] backdrop-blur-md shadow-2xl"
         >
           {/* Terminal Header */}
-          <div className="flex items-center px-4 py-3 bg-[#16201b] border-b border-white/10">
+          <div className="flex items-center px-3 sm:px-4 py-2.5 sm:py-3 bg-[#16201b] border-b border-white/10">
             <div className="flex space-x-2">
-              <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-              <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500/80"></div>
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500/80"></div>
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/80"></div>
             </div>
-            <div className="mx-auto text-xs text-gray-400 font-mono flex items-center gap-2">
+            <div className="mx-auto text-[11px] sm:text-xs text-gray-400 font-mono flex items-center gap-1.5 sm:gap-2">
               <span className="opacity-50">~</span> 
               <span>skills — bash</span>
             </div>
           </div>
 
           {/* Terminal Body */}
-          <div className="p-6 md:p-8 font-mono text-sm md:text-base min-h-[300px]">
-            <div className="flex items-center gap-2 text-gray-300">
+          <div className="p-4 sm:p-6 md:p-8 font-mono text-xs sm:text-sm md:text-base min-h-[260px] sm:min-h-[300px]">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-gray-300">
               <span className="text-brand-mint font-semibold">alan@portfolio</span>
               <span className="text-white">:</span>
               <span className="text-emerald-400">~/skills</span>
               <span className="text-white">$</span>
-              <span className="text-white font-medium">
+              <span className="text-white font-medium break-all sm:break-normal">
                 {displayedCommand}
                 {!typingComplete && (
                   <motion.span
                     animate={{ opacity: [1, 0] }}
                     transition={{ repeat: Infinity, duration: 0.8 }}
-                    className="inline-block w-2.5 h-4 md:h-5 bg-brand-mint ml-1 align-middle"
+                    className="inline-block w-2 h-3.5 sm:w-2.5 sm:h-4 md:h-5 bg-brand-mint ml-1 align-middle"
                   />
                 )}
               </span>
@@ -90,20 +90,20 @@ export default function TerminalSkills() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="mt-6 space-y-3"
+                className="mt-4 sm:mt-6 space-y-2.5 sm:space-y-3"
               >
-                <div className="text-gray-400 mb-4 text-xs font-mono">✔ Fetching verified stack modules...</div>
+                <div className="text-gray-400 mb-3 sm:mb-4 text-[11px] sm:text-xs font-mono">✔ Fetching verified stack modules...</div>
                 {SKILLS.map((skill, index) => (
                   <motion.div
                     key={skill}
                     initial={{ opacity: 0, x: -15 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.12 + 0.1 }}
-                    className="flex items-center gap-3"
+                    className="flex items-start sm:items-center gap-2 sm:gap-3"
                   >
-                    <span className="text-brand-mint">✔</span>
-                    <span className="text-emerald-400 font-mono">[{index + 1}]</span>
-                    <span className="text-white hover:text-brand-mint transition-colors cursor-default">
+                    <span className="text-brand-mint mt-0.5 sm:mt-0">✔</span>
+                    <span className="text-emerald-400 font-mono text-[11px] sm:text-xs md:text-sm">[{index + 1}]</span>
+                    <span className="text-white hover:text-brand-mint transition-colors cursor-default leading-tight sm:leading-normal">
                       {skill}
                     </span>
                   </motion.div>
@@ -112,7 +112,7 @@ export default function TerminalSkills() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: SKILLS.length * 0.12 + 0.4 }}
-                  className="mt-6 flex items-center gap-2 text-gray-300"
+                  className="mt-4 sm:mt-6 flex flex-wrap items-center gap-1.5 sm:gap-2 text-gray-300"
                 >
                   <span className="text-brand-mint font-semibold">alan@portfolio</span>
                   <span className="text-white">:</span>
@@ -121,7 +121,7 @@ export default function TerminalSkills() {
                   <motion.span
                     animate={{ opacity: [1, 0] }}
                     transition={{ repeat: Infinity, duration: 0.8 }}
-                    className="inline-block w-2.5 h-4 md:h-5 bg-brand-mint ml-1 align-middle"
+                    className="inline-block w-2 h-3.5 sm:w-2.5 sm:h-4 md:h-5 bg-brand-mint ml-1 align-middle"
                   />
                 </motion.div>
               </motion.div>

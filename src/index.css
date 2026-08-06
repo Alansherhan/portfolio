@@ -8,7 +8,7 @@
   --color-brand-secondary: #22C55E; /* Emerald Accent */
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Space Grotesk', 'Syne', sans-serif;
-  --font-curve: 'Outfit', sans-serif;
+  --font-curve: 'Satisfy', 'Dancing Script', cursive;
   --font-mono: 'Fira Code', monospace;
 }
 
@@ -31,11 +31,13 @@
 }
 
 /* Base Styles */
-body {
+html, body {
   background-color: var(--color-brand-bg);
   color: #F8FAFC;
   overflow-x: hidden;
+  max-width: 100vw;
   font-family: var(--font-sans);
+  scroll-behavior: smooth;
 }
 
 /* Custom Utilities */

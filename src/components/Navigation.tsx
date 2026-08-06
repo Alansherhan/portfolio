@@ -53,16 +53,16 @@ export default function Navigation() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-xl flex flex-col justify-between p-8 md:p-16"
+            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex flex-col justify-between p-5 sm:p-8 md:p-16 overflow-y-auto max-h-[100dvh]"
           >
             {/* Top drawer bar */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-6">
-              <span className="text-sm font-semibold tracking-widest text-white/60 uppercase">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 sm:pb-6">
+              <span className="text-xs sm:text-sm font-semibold tracking-widest text-white/60 uppercase font-mono">
                 Navigation
               </span>
               <button
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer"
+                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors cursor-pointer"
               >
                 <span>Close</span>
                 <X className="w-4 h-4" />
@@ -70,8 +70,8 @@ export default function Navigation() {
             </div>
 
             {/* Links list */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto max-w-5xl w-full mx-auto">
-              <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 my-auto py-6 max-w-5xl w-full mx-auto">
+              <div className="flex flex-col gap-3 sm:gap-4">
                 {NAV_LINKS.map((link, i) => (
                   <motion.a
                     key={link.name}
@@ -80,24 +80,24 @@ export default function Navigation() {
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.06 }}
-                    className="text-4xl md:text-6xl font-bold font-display text-white hover:text-brand-mint transition-colors flex items-center gap-3 group"
+                    className="text-3xl sm:text-4xl md:text-6xl font-bold font-display text-white hover:text-brand-mint transition-colors flex items-center gap-2 sm:gap-3 group"
                   >
                     <span>{link.name}</span>
-                    <ArrowUpRight className="w-8 h-8 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 -translate-y-2 transition-all text-brand-mint" />
+                    <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 -translate-y-1 transition-all text-brand-mint" />
                   </motion.a>
                 ))}
               </div>
 
-              <div className="flex flex-col justify-end gap-6 text-gray-400 font-sans border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-12">
+              <div className="flex flex-col justify-end gap-5 sm:gap-6 text-gray-400 font-sans border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-12">
                 <div>
                   <h4 className="text-xs uppercase tracking-widest text-white/50 mb-2 font-mono">Contact</h4>
-                  <p className="text-white text-lg font-medium">alansherhankp@gmail.com</p>
-                  <p className="text-gray-400 text-sm mt-1">Kerala, India</p>
+                  <p className="text-white text-base sm:text-lg font-medium break-all sm:break-normal">alansherhan10@gmail.com</p>
+                  <p className="text-gray-400 text-xs sm:text-sm mt-1">Kerala, India</p>
                 </div>
 
                 <div>
                   <h4 className="text-xs uppercase tracking-widest text-white/50 mb-2 font-mono">Socials</h4>
-                  <div className="flex flex-wrap gap-4 text-sm font-medium">
+                  <div className="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm font-medium">
                     <a href="https://github.com/Alansherhan" target="_blank" rel="noopener noreferrer" className="hover:text-brand-mint transition-colors">/ GitHub</a>
                     <a href="https://linkedin.com/in/alansherhan" target="_blank" rel="noopener noreferrer" className="hover:text-brand-mint transition-colors">/ LinkedIn</a>
                     <a href={`${import.meta.env.BASE_URL}Resume.pdf`} target="_blank" rel="noopener noreferrer" className="hover:text-brand-mint transition-colors">/ Resume</a>
@@ -106,7 +106,7 @@ export default function Navigation() {
               </div>
             </div>
 
-            <div className="text-xs font-mono text-white/40 border-t border-white/10 pt-6">
+            <div className="text-[10px] sm:text-xs font-mono text-white/40 border-t border-white/10 pt-4 sm:pt-6">
               ©2026 ALAN SHERHAN K P — ALL RIGHTS RESERVED
             </div>
           </motion.div>

@@ -86,20 +86,18 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="home"
-      className="relative w-full h-screen p-3 md:p-6 lg:p-8 flex flex-col justify-center bg-[#0A0D0C] overflow-hidden pt-16 lg:pt-20"
+      className="relative w-full min-h-[100dvh] p-2 sm:p-4 md:p-6 lg:p-8 flex flex-col justify-center bg-[#0A0D0C] overflow-hidden pt-14 sm:pt-20"
     >
       {/* Pinned Framed Hero Canvas Viewport */}
-      <div className="relative w-full h-[calc(100vh-3rem)] rounded-[24px] md:rounded-[36px] bg-gradient-to-b from-[#111814] via-[#0d1411] to-[#0a0d0c] hero-canvas-border p-6 md:p-10 lg:p-14 flex flex-col justify-between overflow-hidden shadow-2xl">
+      <div className="relative w-full h-[calc(100dvh-3.5rem)] min-h-[480px] rounded-[20px] sm:rounded-[28px] md:rounded-[36px] bg-gradient-to-b from-[#111814] via-[#0d1411] to-[#0a0d0c] hero-canvas-border p-3 sm:p-8 md:p-10 lg:p-14 flex flex-col justify-between overflow-hidden shadow-2xl">
 
         {/* Atmospheric Emerald Ambient Spotlights */}
-        <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[450px] md:w-[750px] h-[450px] md:h-[750px] bg-brand-mint/20 rounded-full blur-[140px] pointer-events-none mix-blend-screen z-0" />
-        <div className="absolute top-[8%] right-[12%] w-[350px] h-[350px] bg-emerald-600/15 rounded-full blur-[130px] pointer-events-none z-0" />
+        <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] md:w-[750px] h-[300px] sm:h-[500px] md:h-[750px] bg-brand-mint/20 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none mix-blend-screen z-0" />
+        <div className="absolute top-[8%] right-[12%] w-[200px] sm:w-[350px] h-[200px] sm:h-[350px] bg-emerald-600/15 rounded-full blur-[90px] sm:blur-[130px] pointer-events-none z-0" />
 
         {/* Top Header metadata inside hero canvas */}
         <div ref={topHeaderRef} className="relative z-30 flex items-center justify-between w-full">
-          <div className="text-xs md:text-sm font-semibold tracking-widest text-white/70 uppercase font-mono">
-            ALAN SHERHAN K P
-          </div>
+                  
           {/* Right space reserved for floating nav menu pill spacing */}
           <div className="w-24 md:w-32 hidden md:block"></div>
         </div>
@@ -108,15 +106,15 @@ export default function Hero() {
           ====================================================================
           LAYER 1: Large Background Name Text (z-10)
           - Sinks furthest in depth stack (behind image & foreground text).
-          - Scales slightly UP on scroll to visually "come forward" as portrait photo recedes.
+          - Positioned in upper-middle area on mobile to fill vertical space.
           ====================================================================
         */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none select-none px-4">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-[18vh] sm:pt-0 sm:justify-center pointer-events-none select-none px-2 sm:px-4">
           <h1
             ref={bgTextRef}
-            className="font-curve font-black text-center text-brand-mint tracking-tighter text-[11vw] md:text-[10vw] leading-[0.85] uppercase font-extrabold drop-shadow-[0_10px_40px_rgba(78,254,136,0.2)] will-change-transform"
+            className="font-curve text-center text-brand-mint text-[16vw] sm:text-[14vw] md:text-[13.5vw] lg:text-[12.5vw] leading-[1.0] font-semibold tracking-wide drop-shadow-[0_10px_50px_rgba(78,254,136,0.35)] will-change-transform pb-2 whitespace-nowrap"
           >
-            ALAN SHERHAN
+            Alan Sherhan
           </h1>
         </div>
 
@@ -130,21 +128,21 @@ export default function Hero() {
         */}
         <div
           ref={portraitRef}
-          className="absolute z-20 bottom-0 left-1/2 -translate-x-1/2 w-[280px] sm:w-[420px] md:w-[520px] lg:w-[720px] pointer-events-none flex justify-center items-end will-change-transform"
+          className="absolute z-20 bottom-0 left-1/2 -translate-x-1/2 w-[90%] sm:w-[360px] md:w-[500px] lg:w-[700px] pointer-events-none flex justify-center items-end will-change-transform"
         >
           <div className="relative w-full h-full">
             <img
               src={`${import.meta.env.BASE_URL}hero-portrait.png`}
               alt="Alan Sherhan K P"
-              className="w-full h-auto object-cover object-top filter brightness-[0.94] contrast-[1.06] max-h-[62vh] md:max-h-[75vh]"
+              className="w-full h-auto object-cover object-top filter brightness-[0.94] contrast-[1.06] max-h-[68vh] sm:max-h-[62vh] md:max-h-[75vh]"
             />
             {/* Vignette floor transition gradient */}
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a0d0c] via-[#0a0d0c]/60 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-20 sm:h-24 bg-gradient-to-t from-[#0a0d0c] via-[#0a0d0c]/60 to-transparent" />
           </div>
         </div>
 
         {/* Right Edge: Vertical SCROLL Bar Indicator */}
-        <div className="absolute right-5 md:right-8 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col items-center gap-4 pointer-events-none">
+        <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col items-center gap-4 pointer-events-none">
           <div className="w-[2px] h-14 bg-gradient-to-b from-brand-mint/80 to-transparent rounded-full animate-pulse" />
           <span className="writing-mode-vertical text-[11px] font-mono tracking-widest text-white/60 uppercase rotate-180">
             SCROLL
@@ -162,31 +160,31 @@ export default function Hero() {
         */}
         <div ref={foregroundRef} className="relative z-30 w-full flex flex-col justify-between h-full pointer-events-none will-change-transform">
           {/* Top Intro Tagline */}
-          <div className="mt-8 md:mt-12 pointer-events-auto">
+          <div className="mt-2 sm:mt-8 md:mt-12 pointer-events-auto">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="flex items-center gap-2 mb-2"
             >
-              <span className="text-base md:text-xl font-semibold text-white tracking-tight bg-black/30 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 inline-block shadow-lg">
-                Hey<span className="inline-block animate-bounce ml-1">👋</span>, I'm a Full Stack Developer
+              <span className="text-xs sm:text-sm md:text-xl font-semibold text-white tracking-tight bg-black/50 backdrop-blur-md px-3.5 py-1.5 sm:px-4 sm:py-1.5 rounded-full border border-white/10 inline-flex items-center shadow-lg">
+                Hey<span className="inline-block animate-bounce mx-1">👋</span>, I'm a Full Stack Developer
               </span>
             </motion.div>
           </div>
 
           {/* Bottom Info Bar: Left Contact & Right Bio + Links */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end mt-auto pt-8 md:pt-16 pointer-events-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-6 items-end mt-auto pt-4 sm:pt-8 md:pt-16 pointer-events-auto">
             {/* Bottom Left Contact Info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="md:col-span-4 flex flex-col gap-1 text-xs md:text-sm font-mono text-white/90 bg-black/25 backdrop-blur-md p-4 rounded-2xl border border-white/10"
+              className="md:col-span-5 lg:col-span-4 flex flex-col gap-1 text-xs sm:text-sm font-mono text-white/90 bg-black/40 backdrop-blur-md p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-white/10"
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 truncate">
                 <span className="text-white/40">E</span>
-                <a href="mailto:alansherhankp@gmail.com" className="hover:text-brand-mint transition-colors">
+                <a href="mailto:alansherhan10@gmail.com" className="hover:text-brand-mint transition-colors truncate">
                   alansherhan10@gmail.com
                 </a>
               </div>
@@ -194,7 +192,7 @@ export default function Hero() {
                 <span className="text-white/40">T</span>
                 <span>+91 9633283964</span>
               </div>
-              <div className="mt-2">
+              <div className="mt-1 sm:mt-2">
                 <button
                   onClick={() => setIsAboutOpen(true)}
                   className="inline-flex items-center gap-1.5 text-xs text-brand-mint hover:underline font-semibold cursor-pointer"
@@ -209,14 +207,14 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="md:col-span-8 flex flex-col md:items-end space-y-4"
+              className="md:col-span-7 lg:col-span-8 flex flex-col md:items-end space-y-2 sm:space-y-4"
             >
-              <p className="text-xs md:text-sm text-gray-200 font-sans max-w-lg leading-relaxed bg-black/25 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+              <p className="text-xs sm:text-sm text-gray-200 font-sans max-w-lg leading-relaxed bg-black/40 backdrop-blur-md p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-white/10 hidden sm:block">
                 I build fast, scalable, and user-friendly mobile & web applications using modern Flutter and Node.js technologies. My main tools of choice are Flutter on mobile and React & Node.js on full-stack development.
               </p>
 
               {/* Slash separated links */}
-              <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium font-sans text-white/90 bg-black/30 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs md:text-sm font-medium font-sans text-white/90 bg-black/40 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/10">
                 <a
                   href="https://github.com/Alansherhan"
                   target="_blank"

@@ -54,24 +54,24 @@ const PROJECTS = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 relative bg-[#0A0D0C]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="projects" className="py-16 md:py-24 relative bg-[#0A0D0C]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold font-display text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold font-display text-white mb-3 sm:mb-4">
             Featured <span className="text-brand-mint">Projects</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto font-sans text-sm md:text-base">
+          <p className="text-gray-400 max-w-2xl mx-auto font-sans text-xs sm:text-sm md:text-base">
             A selection of my recent work in mobile development, backend engineering, and system design.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {PROJECTS.map((project, i) => (
             <motion.div
               key={project.title}
@@ -80,22 +80,22 @@ export default function Projects() {
               viewport={{ once: false, amount: 0.15 }}
               transition={{ duration: 0.6, delay: i * 0.12 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative bg-[#111814] rounded-3xl p-6 md:p-8 border border-white/10 hover:border-brand-mint/50 transition-all duration-300 flex flex-col h-full overflow-hidden shadow-xl"
+              className="group relative bg-[#111814] rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 border border-white/10 hover:border-brand-mint/50 transition-all duration-300 flex flex-col h-full overflow-hidden shadow-xl"
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-100 transition-opacity -z-10 rounded-3xl`} />
+              <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-100 transition-opacity -z-10 rounded-2xl sm:rounded-3xl`} />
 
-              <div className="mb-6 flex justify-between items-start">
-                <div className="w-12 h-12 rounded-xl bg-[#0A0D0C] flex items-center justify-center border border-white/10 group-hover:border-brand-mint/40 transition-colors">
-                  <span className="text-xl font-mono text-brand-mint font-bold">0{i + 1}</span>
+              <div className="mb-5 sm:mb-6 flex justify-between items-start gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#0A0D0C] flex items-center justify-center border border-white/10 group-hover:border-brand-mint/40 transition-colors shrink-0">
+                  <span className="text-lg sm:text-xl font-mono text-brand-mint font-bold">0{i + 1}</span>
                 </div>
-                <div className="flex flex-wrap lg:flex-nowrap gap-4 items-center">
+                <div className="flex flex-wrap gap-2 sm:gap-3 items-center justify-end">
                   <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors p-2 bg-white/5 rounded-lg hover:bg-white/10" aria-label="Github repository">
-                    <Github className="w-5 h-5" />
+                    <Github className="w-4 h-4 sm:w-5 sm:h-5" />
                   </a>
                   {project.downloads.map((dl, idx) => (
                     <div key={idx} className="relative group/dl flex items-center justify-center">
-                      <a href={dl.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-brand-mint/10 text-brand-mint border border-brand-mint/30 rounded-lg text-xs font-semibold hover:bg-brand-mint/20 transition-colors">
-                        <Download className="w-4 h-4" />
+                      <a href={dl.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-brand-mint/10 text-brand-mint border border-brand-mint/30 rounded-lg text-[11px] sm:text-xs font-semibold hover:bg-brand-mint/20 transition-colors">
+                        <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         {dl.label}
                       </a>
                     </div>
@@ -103,16 +103,16 @@ export default function Projects() {
                 </div>
               </div>
 
-              <h3 className="text-2xl font-bold font-display text-white mb-3 group-hover:text-brand-mint transition-colors">{project.title}</h3>
-              <p className="text-gray-300 text-sm mb-4 leading-relaxed">{project.description}</p>
+              <h3 className="text-xl sm:text-2xl font-bold font-display text-white mb-2 sm:mb-3 group-hover:text-brand-mint transition-colors">{project.title}</h3>
+              <p className="text-gray-300 text-xs sm:text-sm mb-4 leading-relaxed">{project.description}</p>
 
-              <div className="mb-6 flex-grow">
+              <div className="mb-5 sm:mb-6 flex-grow">
                 <p className="text-xs font-semibold text-white mb-2 font-mono">
                   Role: <span className="text-brand-mint font-sans">{project.role}</span>
                 </p>
                 <ul className="space-y-1.5">
                   {project.features.map((feature, idx) => (
-                    <li key={idx} className="text-xs md:text-sm text-gray-300 flex items-start">
+                    <li key={idx} className="text-xs sm:text-sm text-gray-300 flex items-start">
                       <span className="text-brand-mint mr-2 mt-0.5">•</span>
                       {feature}
                     </li>
@@ -120,9 +120,9 @@ export default function Projects() {
                 </ul>
               </div>
 
-              <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-auto pt-4 border-t border-white/5">
                 {project.tech.map((tech) => (
-                  <span key={tech} className="px-3 py-1 text-xs font-mono text-emerald-400 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                  <span key={tech} className="px-2.5 py-1 text-[11px] sm:text-xs font-mono text-emerald-400 bg-emerald-500/10 rounded-full border border-emerald-500/20">
                     {tech}
                   </span>
                 ))}
