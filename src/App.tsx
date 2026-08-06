@@ -9,7 +9,7 @@ import ScrollProgressBar from './components/ScrollProgressBar';
 
 function App() {
   return (
-    <div className="bg-[#0A0D0C] text-white min-h-screen selection:bg-brand-mint selection:text-gray-950 font-sans antialiased overflow-x-hidden">
+    <div className="bg-[#F0EFE9] text-[#0A0A0A] min-h-screen selection:bg-[#0A0A0A] selection:text-[#F0EFE9] font-sans antialiased overflow-x-hidden">
       <ScrollProgressBar />
       <Navigation />
 

@@ -25,89 +25,118 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 lg:px-12 flex items-center justify-between pointer-events-auto">
-        {/* Brand Name top left */}
+      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 lg:px-10 flex items-center justify-between bg-[#F0EFE9]/90 backdrop-blur-md border-b border-black/[0.06]">
+        {/* Brand: ✦ + Name */}
         <a
           href="#home"
-          className="text-xs md:text-sm font-semibold tracking-widest text-white/90 uppercase font-sans hover:text-brand-mint transition-colors"
+          onClick={(e) => handleLinkClick(e, '#home')}
+          className="flex items-center gap-2 text-[#0A0A0A] hover:opacity-70 transition-opacity"
         >
-          ALAN SHERHAN K P
+          <span className="text-base leading-none select-none">✦</span>
+          <span className="font-serif italic text-lg md:text-xl font-normal tracking-tight text-[#0A0A0A]">
+            Alan Sherhan.
+          </span>
         </a>
 
-        {/* Floating White Menu Pill Button */}
+        {/* Desktop: Inline horizontal nav links */}
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          {NAV_LINKS.slice(0, 5).map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={(e) => handleLinkClick(e, link.href)}
+              className="text-xs font-semibold tracking-widest uppercase text-[#0A0A0A]/60 hover:text-[#0A0A0A] transition-colors"
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+
+        {/* Desktop: "Get in touch" pill CTA */}
+        <div className="hidden md:flex items-center">
+          <a
+            href="#contact"
+            onClick={(e) => handleLinkClick(e, '#contact')}
+            className="flex items-center gap-2.5 bg-[#0A0A0A] text-[#F0EFE9] px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-[#1A1A1A] transition-colors shadow-sm"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#4EFE88] animate-pulse-dot shrink-0" />
+            Get in touch
+          </a>
+        </div>
+
+        {/* Mobile: Hamburger */}
         <button
+          id="mobile-nav-toggle"
           onClick={() => setIsOpen(true)}
-          className="group flex items-center gap-3 bg-white hover:bg-gray-100 text-gray-950 px-5 py-2 rounded-full font-medium text-sm transition-all shadow-lg hover:scale-105 active:scale-95 cursor-pointer"
+          className="md:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
+          aria-label="Open navigation menu"
         >
-          <span>Menu</span>
-          <span className="flex items-center text-xs tracking-tighter font-mono group-hover:rotate-90 transition-transform">
-            ••
-          </span>
+          <span className="w-6 h-0.5 bg-[#0A0A0A] rounded-full" />
+          <span className="w-4 h-0.5 bg-[#0A0A0A] rounded-full" />
+          <span className="w-5 h-0.5 bg-[#0A0A0A] rounded-full" />
         </button>
       </nav>
 
-      {/* Full-Screen Drawer Menu */}
+      {/* Mobile Full-Screen Drawer — light themed */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex flex-col justify-between p-5 sm:p-8 md:p-16 overflow-y-auto max-h-[100dvh]"
+            className="fixed inset-0 z-[100] bg-[#F0EFE9]/98 backdrop-blur-xl flex flex-col justify-between p-6 sm:p-8 overflow-y-auto max-h-[100dvh]"
           >
             {/* Top drawer bar */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 sm:pb-6">
-              <span className="text-xs sm:text-sm font-semibold tracking-widest text-white/60 uppercase font-mono">
-                Navigation
-              </span>
+            <div className="flex items-center justify-between border-b border-black/10 pb-5">
+              <a
+                href="#home"
+                onClick={(e) => handleLinkClick(e, '#home')}
+                className="flex items-center gap-2 text-[#0A0A0A]"
+              >
+                <span className="text-base leading-none">✦</span>
+                <span className="font-serif italic text-xl text-[#0A0A0A]">Alan Sherhan.</span>
+              </a>
               <button
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+                className="flex items-center gap-2 border border-black/15 hover:bg-black/5 text-[#0A0A0A] px-4 py-2 rounded-full text-xs font-medium transition-colors cursor-pointer"
+                aria-label="Close navigation"
               >
                 <span>Close</span>
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5" />
               </button>
             </div>
 
             {/* Links list */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 my-auto py-6 max-w-5xl w-full mx-auto">
-              <div className="flex flex-col gap-3 sm:gap-4">
-                {NAV_LINKS.map((link, i) => (
-                  <motion.a
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => handleLinkClick(e, link.href)}
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.06 }}
-                    className="text-3xl sm:text-4xl md:text-6xl font-bold font-display text-white hover:text-brand-mint transition-colors flex items-center gap-2 sm:gap-3 group"
-                  >
-                    <span>{link.name}</span>
-                    <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 -translate-y-1 transition-all text-brand-mint" />
-                  </motion.a>
-                ))}
-              </div>
-
-              <div className="flex flex-col justify-end gap-5 sm:gap-6 text-gray-400 font-sans border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-12">
-                <div>
-                  <h4 className="text-xs uppercase tracking-widest text-white/50 mb-2 font-mono">Contact</h4>
-                  <p className="text-white text-base sm:text-lg font-medium break-all sm:break-normal">alansherhan10@gmail.com</p>
-                  <p className="text-gray-400 text-xs sm:text-sm mt-1">Kerala, India</p>
-                </div>
-
-                <div>
-                  <h4 className="text-xs uppercase tracking-widest text-white/50 mb-2 font-mono">Socials</h4>
-                  <div className="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm font-medium">
-                    <a href="https://github.com/Alansherhan" target="_blank" rel="noopener noreferrer" className="hover:text-brand-mint transition-colors">/ GitHub</a>
-                    <a href="https://linkedin.com/in/alansherhan" target="_blank" rel="noopener noreferrer" className="hover:text-brand-mint transition-colors">/ LinkedIn</a>
-                    <a href={`${import.meta.env.BASE_URL}Resume.pdf`} target="_blank" rel="noopener noreferrer" className="hover:text-brand-mint transition-colors">/ Resume</a>
-                  </div>
-                </div>
-              </div>
+            <div className="flex flex-col gap-2 my-auto py-8">
+              {NAV_LINKS.map((link, i) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(e, link.href)}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.06 }}
+                  className="text-4xl sm:text-5xl font-bold font-display text-[#0A0A0A] hover:text-[#6B6B65] transition-colors flex items-center gap-3 group py-2"
+                >
+                  <span>{link.name}</span>
+                  <ArrowUpRight className="w-7 h-7 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 -translate-y-0.5 transition-all text-[#0A0A0A]" />
+                </motion.a>
+              ))}
             </div>
 
-            <div className="text-[10px] sm:text-xs font-mono text-white/40 border-t border-white/10 pt-4 sm:pt-6">
-              ©2026 ALAN SHERHAN K P — ALL RIGHTS RESERVED
+            {/* Drawer bottom */}
+            <div className="border-t border-black/10 pt-5 flex flex-col gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-[#6B6B65] mb-1 font-mono">Contact</p>
+                <p className="text-[#0A0A0A] text-base font-medium">alansherhan10@gmail.com</p>
+                <p className="text-[#6B6B65] text-sm">Kerala, India</p>
+              </div>
+              <div className="flex gap-4 text-sm font-medium text-[#6B6B65]">
+                <a href="https://github.com/Alansherhan" target="_blank" rel="noopener noreferrer" className="hover:text-[#0A0A0A] transition-colors">/ GitHub</a>
+                <a href="https://linkedin.com/in/alansherhan" target="_blank" rel="noopener noreferrer" className="hover:text-[#0A0A0A] transition-colors">/ LinkedIn</a>
+                <a href={`${import.meta.env.BASE_URL}Resume.pdf`} target="_blank" rel="noopener noreferrer" className="hover:text-[#0A0A0A] transition-colors">/ Resume</a>
+              </div>
+              <p className="text-xs font-mono text-[#9A9A93]">©2026 ALAN SHERHAN K P — ALL RIGHTS RESERVED</p>
             </div>
           </motion.div>
         )}
