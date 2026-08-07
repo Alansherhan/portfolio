@@ -1,303 +1,240 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowUpRight, Github, FileText } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { X, ArrowUpRight, Github, FileText, Twitter, Linkedin, Instagram } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
+const SKILL_TAGS = ['#Flutter', '#Node.js', '#React', '#Full Stack'];
+
+const STATS = [
+  { label: 'YEARS OF\nLEARNING', value: '3+' },
+  { label: 'DEDICATION\nLEVEL', value: '100%' },
+  { label: 'PROJECTS\nDONE', value: '10+' },
+  { label: 'HAPPY\nCLIENTS', value: '5+' },
+];
 
 export default function Hero() {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
 
-  // Animation Refs
-  const containerRef = useRef<HTMLDivElement>(null);
-  const bgTextRef = useRef<HTMLHeadingElement>(null);
-  const portraitRef = useRef<HTMLDivElement>(null);
-  const foregroundRef = useRef<HTMLDivElement>(null);
-  const topHeaderRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Create a pinned scrub timeline for the Hero scroll sequence
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: '+=120%', // Pins section for 1.2x viewport height during scroll
-          scrub: 1,      // Smooth 1s scrub response to scroll
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      // 1. Layer 2 (Portrait Image): Moves down Y-axis (approx 30vh), scales down (1 -> 0.88), blurs out, & reduces opacity
-      tl.to(
-        portraitRef.current,
-        {
-          yPercent: 35,
-          scale: 0.88,
-          filter: 'blur(12px)',
-          opacity: 0.65,
-          ease: 'none',
-        },
-        0
-      );
-
-      // 2. Layer 1 (Background Name Text): Comes forward visually (scale 1 -> 1.06) with enhanced emerald drop-shadow glow
-      tl.to(
-        bgTextRef.current,
-        {
-          scale: 1.06,
-          yPercent: -10,
-          textShadow: '0 20px 60px rgba(78, 254, 136, 0.45)',
-          ease: 'none',
-        },
-        0
-      );
-
-      // 3. Layer 3 (Foreground Content Text): Rises upward over the sinking image layer
-      tl.to(
-        foregroundRef.current,
-        {
-          yPercent: -18,
-          opacity: 1,
-          ease: 'none',
-        },
-        0
-      );
-
-      // Subtle top header fade & upward motion
-      tl.to(
-        topHeaderRef.current,
-        {
-          yPercent: -20,
-          opacity: 0.8,
-          ease: 'none',
-        },
-        0
-      );
-    }, containerRef);
-
-    return () => ctx.revert(); // Clean up GSAP triggers on component unmount
-  }, []);
-
   return (
     <section
-      ref={containerRef}
       id="home"
-      className="relative w-full h-screen p-3 md:p-6 lg:p-8 flex flex-col justify-center bg-[#0A0D0C] overflow-hidden pt-16 lg:pt-20"
+      className="relative w-full min-h-[100dvh] bg-[#F0EFE9] flex flex-col pt-[4.5rem] overflow-hidden"
     >
-      {/* Pinned Framed Hero Canvas Viewport */}
-      <div className="relative w-full h-[calc(100vh-3rem)] rounded-[24px] md:rounded-[36px] bg-gradient-to-b from-[#111814] via-[#0d1411] to-[#0a0d0c] hero-canvas-border p-6 md:p-10 lg:p-14 flex flex-col justify-between overflow-hidden shadow-2xl">
+      {/* Main Hero Content — fills viewport height */}
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-0 px-6 sm:px-10 lg:px-12 pb-0 min-h-0">
 
-        {/* Atmospheric Emerald Ambient Spotlights */}
-        <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[450px] md:w-[750px] h-[450px] md:h-[750px] bg-brand-mint/20 rounded-full blur-[140px] pointer-events-none mix-blend-screen z-0" />
-        <div className="absolute top-[8%] right-[12%] w-[350px] h-[350px] bg-emerald-600/15 rounded-full blur-[130px] pointer-events-none z-0" />
-
-        {/* Top Header metadata inside hero canvas */}
-        <div ref={topHeaderRef} className="relative z-30 flex items-center justify-between w-full">
-          <div className="text-xs md:text-sm font-semibold tracking-widest text-white/70 uppercase font-mono">
-            ALAN SHERHAN K P
-          </div>
-          {/* Right space reserved for floating nav menu pill spacing */}
-          <div className="w-24 md:w-32 hidden md:block"></div>
-        </div>
-
-        {/* 
-          ====================================================================
-          LAYER 1: Large Background Name Text (z-10)
-          - Sinks furthest in depth stack (behind image & foreground text).
-          - Scales slightly UP on scroll to visually "come forward" as portrait photo recedes.
-          ====================================================================
-        */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none select-none px-4">
-          <h1
-            ref={bgTextRef}
-            className="font-curve font-black text-center text-brand-mint tracking-tighter text-[11vw] md:text-[10vw] leading-[0.85] uppercase font-extrabold drop-shadow-[0_10px_40px_rgba(78,254,136,0.2)] will-change-transform"
+        {/* ====== LEFT COLUMN: Text Content ====== */}
+        <div className="flex flex-col justify-center py-8 lg:py-12 lg:pr-8 xl:pr-12 order-2 lg:order-1">
+          {/* Eyebrow label */}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#6B6B65] mb-3"
           >
-            ALAN SHERHAN
-          </h1>
-        </div>
+            PROFESSIONAL
+          </motion.p>
 
-        {/* 
-          ====================================================================
-          LAYER 2: Portrait Image Layer (z-20)
-          - Positioned in front of Layer 1 (Background Name Text).
-          - On scroll: GSAP translates it down (~35%), scales it down (0.88),
-            adds 12px blur, and reduces opacity (0.65).
-          ====================================================================
-        */}
-        <div
-          ref={portraitRef}
-          className="absolute z-20 bottom-0 left-1/2 -translate-x-1/2 w-[280px] sm:w-[420px] md:w-[520px] lg:w-[720px] pointer-events-none flex justify-center items-end will-change-transform"
-        >
-          <div className="relative w-full h-full">
-            <img
-              src={`${import.meta.env.BASE_URL}hero-portrait.png`}
-              alt="Alan Sherhan K P"
-              className="w-full h-auto object-cover object-top filter brightness-[0.94] contrast-[1.06] max-h-[62vh] md:max-h-[75vh]"
-            />
-            {/* Vignette floor transition gradient */}
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a0d0c] via-[#0a0d0c]/60 to-transparent" />
-          </div>
-        </div>
-
-        {/* Right Edge: Vertical SCROLL Bar Indicator */}
-        <div className="absolute right-5 md:right-8 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col items-center gap-4 pointer-events-none">
-          <div className="w-[2px] h-14 bg-gradient-to-b from-brand-mint/80 to-transparent rounded-full animate-pulse" />
-          <span className="writing-mode-vertical text-[11px] font-mono tracking-widest text-white/60 uppercase rotate-180">
-            SCROLL
-          </span>
-        </div>
-
-        {/* 
-          ====================================================================
-          LAYER 3: Foreground Content & Text Overlay (z-30)
-          - Positioned at highest z-index (z-30), above the Portrait Image (z-20).
-          - On scroll: Moves slightly UP on Y-axis.
-          - As the image sinks down behind it, this foreground content layer
-            naturally floats ON TOP of the image without any z-index switching!
-          ====================================================================
-        */}
-        <div ref={foregroundRef} className="relative z-30 w-full flex flex-col justify-between h-full pointer-events-none will-change-transform">
-          {/* Top Intro Tagline */}
-          <div className="mt-8 md:mt-12 pointer-events-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-2 mb-2"
-            >
-              <span className="text-base md:text-xl font-semibold text-white tracking-tight bg-black/30 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 inline-block shadow-lg">
-                Hey<span className="inline-block animate-bounce ml-1">👋</span>, I'm a Full Stack Developer
+          {/* Main Title */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.08 }}
+            className="mb-5"
+          >
+            <h1 className="font-display font-bold text-[#0A0A0A] leading-[0.92] tracking-tight">
+              <span className="block text-[11vw] sm:text-[9vw] lg:text-[5.5vw] xl:text-[5vw] 2xl:text-[4.5vw]">
+                Flutter &amp;
               </span>
-            </motion.div>
-          </div>
+              <span className="block font-serif italic font-normal text-[11vw] sm:text-[9vw] lg:text-[5.5vw] xl:text-[5vw] 2xl:text-[4.5vw] mt-1">
+                Node.js Dev.
+              </span>
+            </h1>
+          </motion.div>
 
-          {/* Bottom Info Bar: Left Contact & Right Bio + Links */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end mt-auto pt-8 md:pt-16 pointer-events-auto">
-            {/* Bottom Left Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="md:col-span-4 flex flex-col gap-1 text-xs md:text-sm font-mono text-white/90 bg-black/25 backdrop-blur-md p-4 rounded-2xl border border-white/10"
+          {/* Skill Tags */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.18 }}
+            className="flex flex-wrap gap-2 mb-5"
+          >
+            {SKILL_TAGS.map((tag) => (
+              <span key={tag} className="skill-tag text-[11px] sm:text-xs cursor-default">
+                {tag}
+              </span>
+            ))}
+          </motion.div>
+
+          {/* Bio */}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.26 }}
+            className="text-[#6B6B65] text-xs sm:text-sm leading-relaxed max-w-xs mb-8 font-sans"
+          >
+            I help businesses grow through fast, scalable mobile &amp; web solutions — built with Flutter, Node.js, and modern React stacks.
+          </motion.p>
+
+          {/* Circular "Describe your project → Call Alan" CTA */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.34 }}
+          >
+            <button
+              id="hero-about-cta"
+              onClick={() => setIsAboutOpen(true)}
+              className="circle-cta w-28 h-28 sm:w-32 sm:h-32 flex flex-col items-center justify-center text-center gap-1 text-[#0A0A0A] hover:text-[#F0EFE9] group cursor-pointer"
+              aria-label="Learn more about Alan"
             >
-              <div className="flex items-center gap-2">
-                <span className="text-white/40">E</span>
-                <a href="mailto:alansherhankp@gmail.com" className="hover:text-brand-mint transition-colors">
-                  alansherhan10@gmail.com
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-white/40">T</span>
-                <span>+91 9633283964</span>
-              </div>
-              <div className="mt-2">
-                <button
-                  onClick={() => setIsAboutOpen(true)}
-                  className="inline-flex items-center gap-1.5 text-xs text-brand-mint hover:underline font-semibold cursor-pointer"
-                >
-                  More About Me <ArrowUpRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </motion.div>
+              <span className="text-[9px] font-mono tracking-widest uppercase text-[#6B6B65] group-hover:text-[#F0EFE9]/70 transition-colors leading-tight">
+                LEARN MORE<br />ABOUT ME
+              </span>
+              <span className="text-lg sm:text-xl font-bold font-display leading-tight group-hover:text-[#F0EFE9] transition-colors">
+                Who Am I?
+              </span>
+              <ArrowUpRight className="w-4 h-4 mt-0.5 text-[#0A0A0A] group-hover:text-[#F0EFE9] transition-colors" />
+            </button>
+          </motion.div>
+        </div>
 
-            {/* Bottom Right Bio Paragraph & Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="md:col-span-8 flex flex-col md:items-end space-y-4"
+        {/* ====== CENTER COLUMN: Oval Portrait ====== */}
+        <div className="flex items-end justify-center order-1 lg:order-2 pt-6 lg:pt-0">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.215, 0.61, 0.355, 1] }}
+            className="relative w-[72vw] max-w-[320px] sm:max-w-[360px] lg:max-w-[340px] xl:max-w-[380px]"
+            style={{ aspectRatio: '3/4' }}
+          >
+            {/* Oval Portrait Frame */}
+            <div
+              className="w-full h-full overflow-hidden bg-[#E4E3DC] shadow-[0_20px_60px_rgba(0,0,0,0.14)]"
+              style={{ borderRadius: '50% 50% 50% 50% / 40% 40% 60% 60%' }}
             >
-              <p className="text-xs md:text-sm text-gray-200 font-sans max-w-lg leading-relaxed bg-black/25 backdrop-blur-md p-4 rounded-2xl border border-white/10">
-                I build fast, scalable, and user-friendly mobile & web applications using modern Flutter and Node.js technologies. My main tools of choice are Flutter on mobile and React & Node.js on full-stack development.
-              </p>
+              <img
+                src={`${import.meta.env.BASE_URL}hero-portrait.png`}
+                alt="Alan Sherhan K P — Full Stack Developer"
+                className="w-full h-full object-cover object-top scale-[1.04]"
+                draggable={false}
+              />
+            </div>
+          </motion.div>
+        </div>
 
-              {/* Slash separated links */}
-              <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium font-sans text-white/90 bg-black/30 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
-                <a
-                  href="https://github.com/Alansherhan"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-brand-mint transition-colors flex items-center gap-1"
+        {/* ====== RIGHT COLUMN: Stats ====== */}
+        <div className="flex flex-col justify-center py-8 lg:py-12 lg:pl-8 xl:pl-12 order-3">
+          <div className="flex flex-row flex-wrap lg:flex-col gap-6 sm:gap-8 lg:gap-10 lg:items-end lg:text-right">
+            {STATS.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
+                className="flex flex-col gap-1"
+              >
+                <p
+                  className="text-[9px] sm:text-[10px] font-semibold tracking-[0.15em] uppercase text-[#6B6B65] leading-tight whitespace-pre-line"
                 >
-                  <span className="text-white/40">/</span> GitHub
-                </a>
-                <a
-                  href="https://linkedin.com/in/alansherhan"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-brand-mint transition-colors flex items-center gap-1"
-                >
-                  <span className="text-white/40">/</span> LinkedIn
-                </a>
-                <a
-                  href={`${import.meta.env.BASE_URL}Resume.pdf`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-brand-mint transition-colors flex items-center gap-1"
-                >
-                  <span className="text-white/40">/</span> Resume
-                </a>
-                <a
-                  href="#contact"
-                  className="hover:text-brand-mint transition-colors flex items-center gap-1"
-                >
-                  <span className="text-white/40">/</span> Contact
-                </a>
-              </div>
-            </motion.div>
+                  {stat.label}
+                </p>
+                <p className="stat-number text-3xl sm:text-4xl lg:text-5xl text-[#0A0A0A]">
+                  {stat.value}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* About Me Modal */}
+      {/* ====== HERO BOTTOM BAR ====== */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="border-t border-black/[0.08] px-6 sm:px-10 lg:px-12 py-4 flex items-center justify-between"
+      >
+        <p className="text-[11px] sm:text-xs font-sans text-[#6B6B65] tracking-wide">
+          Built to make your code impossible to ignore.
+        </p>
+        <div className="flex items-center gap-4">
+          <a
+            href="https://x.com/AlanSherhanKp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#6B6B65] hover:text-[#0A0A0A] transition-colors"
+            aria-label="X / Twitter"
+          >
+            <Twitter className="w-4 h-4" />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/alan-sherhan-k-p-529639313/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#6B6B65] hover:text-[#0A0A0A] transition-colors"
+            aria-label="LinkedIn"
+          >
+            <Linkedin className="w-4 h-4" />
+          </a>
+          <a
+            href="https://www.instagram.com/alansherhankp/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#6B6B65] hover:text-[#0A0A0A] transition-colors"
+            aria-label="Instagram"
+          >
+            <Instagram className="w-4 h-4" />
+          </a>
+        </div>
+      </motion.div>
+
+      {/* ====== ABOUT ME MODAL ====== */}
       <AnimatePresence>
         {isAboutOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0A0A0A]/60 backdrop-blur-md"
+            onClick={() => setIsAboutOpen(false)}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl p-8 rounded-3xl bg-[#121815] border border-brand-mint/30 shadow-2xl overflow-y-auto max-h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-2xl p-8 rounded-3xl bg-[#F0EFE9] border border-black/10 shadow-2xl overflow-y-auto max-h-[90vh]"
             >
               <button
                 onClick={() => setIsAboutOpen(false)}
-                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors cursor-pointer"
+                className="absolute top-4 right-4 p-2 text-[#6B6B65] hover:text-[#0A0A0A] hover:bg-black/5 rounded-full transition-colors cursor-pointer"
                 aria-label="Close About Modal"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
 
-              <h2 className="text-3xl font-bold font-display text-white mb-6">
-                About <span className="text-brand-mint">Me</span>
+              <h2 className="text-3xl font-bold font-display text-[#0A0A0A] mb-6">
+                About <span className="font-serif italic font-normal">Me</span>
               </h2>
 
-              <div className="space-y-6 text-gray-300 leading-relaxed font-sans text-sm md:text-base">
+              <div className="space-y-5 text-[#6B6B65] leading-relaxed font-sans text-sm md:text-base">
                 <p>
-                  Hi, I'm <strong className="text-white">Alan Sherhan K P</strong>, a Final-year BCA student deeply passionate about crafting elegant mobile and web solutions. My journey in tech is driven by an obsession with creating seamless user experiences and robust backend architectures.
+                  Hi, I'm <strong className="text-[#0A0A0A]">Alan Sherhan K P</strong>, a Final-year BCA student deeply passionate about crafting elegant mobile and web solutions. My journey in tech is driven by an obsession with creating seamless user experiences and robust backend architectures.
                 </p>
                 <p>
-                  Specializing as a <strong>Flutter & Node.js Developer</strong>, I bridge the gap between beautiful cross-platform front-end designs and scalable server-side systems. Whether I'm building integrated disaster management platforms like ReliefFlow or community-driven utility apps, I thrive on solving complex problems.
+                  Specializing as a <strong className="text-[#0A0A0A]">Flutter &amp; Node.js Developer</strong>, I bridge the gap between beautiful cross-platform front-end designs and scalable server-side systems. Whether I'm building integrated disaster management platforms like ReliefFlow or community-driven utility apps, I thrive on solving complex problems.
                 </p>
                 <p>
                   I am a strong believer in continuous learning. I constantly explore new technologies and best practices, aiming to expand my skill set to build more efficient, accessible, and scalable solutions.
                 </p>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap gap-4">
+              <div className="mt-8 pt-6 border-t border-black/10 flex flex-wrap gap-4">
                 <a
                   href={`${import.meta.env.BASE_URL}Resume.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 bg-brand-mint text-gray-950 font-semibold rounded-full text-sm hover:opacity-90 transition-opacity flex items-center gap-2"
+                  className="px-6 py-3 bg-[#0A0A0A] text-[#F0EFE9] font-semibold rounded-full text-sm hover:bg-[#1A1A1A] transition-colors flex items-center gap-2"
                 >
                   <FileText className="w-4 h-4" /> Download Resume
                 </a>
@@ -305,7 +242,7 @@ export default function Hero() {
                   href="https://github.com/Alansherhan"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 bg-white/10 text-white font-semibold rounded-full text-sm hover:bg-white/20 transition-colors flex items-center gap-2"
+                  className="px-6 py-3 bg-black/[0.06] text-[#0A0A0A] font-semibold rounded-full text-sm hover:bg-black/[0.1] transition-colors flex items-center gap-2"
                 >
                   <Github className="w-4 h-4" /> GitHub Profile
                 </a>
@@ -317,4 +254,3 @@ export default function Hero() {
     </section>
   );
 }
-

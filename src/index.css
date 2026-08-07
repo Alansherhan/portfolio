@@ -1,48 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Satisfy&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-brand-bg: #0A0D0C; /* Dark Slate Emerald */
-  --color-brand-card: #121815; /* Card Background */
-  --color-brand-primary: #4EFE88; /* Neon Mint Green */
-  --color-brand-mint: #4EFE88; /* Neon Mint Green */
-  --color-brand-secondary: #22C55E; /* Emerald Accent */
+  /* Light Cream Palette */
+  --color-cream: #F0EFE9;
+  --color-cream-dark: #E4E3DC;
+  --color-ink: #0A0A0A;
+  --color-ink-light: #1A1A1A;
+  --color-muted: #6B6B65;
+  --color-muted-light: #9A9A93;
+  --color-border: #D8D7D0;
+
+  /* Legacy tokens (kept for terminal/footer dark sections) */
+  --color-brand-bg: #0A0A0A;
+  --color-brand-card: #1A1A1A;
+  --color-brand-primary: #4EFE88;
+  --color-brand-mint: #4EFE88;
+  --color-brand-secondary: #22C55E;
+
+  /* Fonts */
   --font-sans: 'Inter', sans-serif;
-  --font-display: 'Space Grotesk', 'Syne', sans-serif;
-  --font-curve: 'Outfit', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-curve: 'Satisfy', 'Dancing Script', cursive;
   --font-mono: 'Fira Code', monospace;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar — Light */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-brand-bg);
+  background: var(--color-cream);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1a3628;
-  border-radius: 4px;
+  background: #C0BFB8;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-brand-mint);
+  background: var(--color-ink);
 }
 
 /* Base Styles */
-body {
-  background-color: var(--color-brand-bg);
-  color: #F8FAFC;
+html, body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
   overflow-x: hidden;
+  max-width: 100vw;
   font-family: var(--font-sans);
+  scroll-behavior: smooth;
 }
 
-/* Custom Utilities */
+/* Custom Font Utilities */
 .font-display {
   font-family: var(--font-display);
 }
 
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-curve {
+  font-family: var(--font-curve);
+}
+
+/* Color Utilities */
 .text-mint {
   color: var(--color-brand-mint);
 }
@@ -55,15 +80,97 @@ body {
   border-color: var(--color-brand-mint);
 }
 
-.glow-spotlight {
-  background: radial-gradient(circle at 50% 30%, rgba(78, 254, 136, 0.25) 0%, rgba(15, 50, 32, 0.2) 45%, transparent 70%);
+.text-cream {
+  color: var(--color-cream);
 }
 
-.hero-canvas-border {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), inset 0 0 2px rgba(255, 255, 255, 0.05);
+.bg-cream {
+  background-color: var(--color-cream);
 }
 
+.text-ink {
+  color: var(--color-ink);
+}
+
+.text-muted {
+  color: var(--color-muted);
+}
+
+/* Hero Oval Portrait Frame */
+.portrait-oval {
+  border-radius: 50% / 45%;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+}
+
+/* Writing mode utility */
 .writing-mode-vertical {
   writing-mode: vertical-rl;
+}
+
+/* Status Dot animation */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Subtle grain texture overlay */
+.grain-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hero canvas border — light version */
+.hero-canvas-border {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.06), inset 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Stat number large */
+.stat-number {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* Circular CTA button */
+.circle-cta {
+  border: 1.5px solid var(--color-ink);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.circle-cta:hover {
+  background-color: var(--color-ink);
+  color: var(--color-cream);
+}
+
+/* Skill tag pills — outlined */
+.skill-tag {
+  border: 1px solid var(--color-ink);
+  border-radius: 9999px;
+  padding: 0.25rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  transition: all 0.2s ease;
+}
+
+.skill-tag:hover {
+  background-color: var(--color-ink);
+  color: var(--color-cream);
+}
+
+/* Section divider */
+.section-divider {
+  border-top: 1px solid var(--color-border);
 }
