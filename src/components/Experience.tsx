@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { GraduationCap, Briefcase } from 'lucide-react';
+import { GraduationCap, Briefcase, ExternalLink } from 'lucide-react';
 
 const EXPERIENCE = [
   {
@@ -12,11 +12,12 @@ const EXPERIENCE = [
   },
   {
     type: 'experience',
-    title: 'Flutter & Node.js Developer',
-    organization: 'Freelance / Open Source',
-    date: '2025 - Present',
-    description: 'Architecting and building full-stack applications with beautiful cross-platform UIs in Flutter and robust, scalable RESTful APIs using Node.js and Express.',
+    title: 'Full-Stack Developer',
+    organization: 'NorBit Solutions',
+    date: '2026 - Present',
+    description: 'Building and maintaining scalable web and mobile applications at NorBit Solutions (norbitsolutions.com). Working with Flutter, Node.js, and modern React stacks to deliver production-grade solutions for clients.',
     icon: Briefcase,
+    link: 'https://norbitsolutions.com',
   },
 ];
 
@@ -78,7 +79,13 @@ export default function Experience() {
                       {item.title}
                     </h3>
                     <h4 className="text-sm sm:text-md text-[#6B6B65] mb-2 sm:mb-3 font-medium">
-                      {item.organization}
+                      {(item as any).link ? (
+                        <a href={(item as any).link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#0A0A0A] transition-colors">
+                          {item.organization} <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        item.organization
+                      )}
                     </h4>
                     <p className="text-[#6B6B65] text-xs sm:text-sm leading-relaxed font-sans">
                       {item.description}
