@@ -72,7 +72,7 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.26 }}
             className="text-[#6B6B65] text-xs sm:text-sm leading-relaxed max-w-xs mb-8 font-sans"
           >
-            I help businesses grow through fast, scalable mobile &amp; web solutions — built with Flutter, Node.js, and modern React stacks.
+            Full-Stack Developer at <strong className="text-[#0A0A0A]">NorBit Solutions</strong> — building fast, scalable mobile &amp; web apps with Flutter, Node.js, and React.
           </motion.p>
 
           {/* Circular "Describe your project → Call Alan" CTA */}
@@ -219,10 +219,10 @@ export default function Hero() {
 
               <div className="space-y-5 text-[#6B6B65] leading-relaxed font-sans text-sm md:text-base">
                 <p>
-                  Hi, I'm <strong className="text-[#0A0A0A]">Alan Sherhan K P</strong>, a Final-year BCA student deeply passionate about crafting elegant mobile and web solutions. My journey in tech is driven by an obsession with creating seamless user experiences and robust backend architectures.
+                  Hi, I'm <strong className="text-[#0A0A0A]">Alan Sherhan K P</strong>, a Full-Stack Developer currently working at <a href="https://norbitsolutions.com" target="_blank" rel="noopener noreferrer" className="text-[#0A0A0A] underline underline-offset-2 hover:text-[#6B6B65] transition-colors font-semibold">NorBit Solutions</a>. My journey in tech is driven by an obsession with creating seamless user experiences and robust backend architectures.
                 </p>
                 <p>
-                  Specializing as a <strong className="text-[#0A0A0A]">Flutter &amp; Node.js Developer</strong>, I bridge the gap between beautiful cross-platform front-end designs and scalable server-side systems. Whether I'm building integrated disaster management platforms like ReliefFlow or community-driven utility apps, I thrive on solving complex problems.
+                  Specializing as a <strong className="text-[#0A0A0A]">Flutter &amp; Node.js Developer</strong>, I bridge the gap between beautiful cross-platform front-end designs and scalable server-side systems. Whether I'm building integrated disaster management platforms like ReliefFlow or production-grade client solutions at NorBit Solutions, I thrive on solving complex problems.
                 </p>
                 <p>
                   I am a strong believer in continuous learning. I constantly explore new technologies and best practices, aiming to expand my skill set to build more efficient, accessible, and scalable solutions.

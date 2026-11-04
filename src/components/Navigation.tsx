@@ -1,23 +1,23 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowUpRight } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ArrowUpRight } from "lucide-react";
 
 const NAV_LINKS = [
-  { name: 'Home', href: '#home' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Certificates', href: '#certificates' },
-  { name: 'Contact', href: '#contact' },
+  { name: "Home", href: "#home" },
+  { name: "Skills", href: "#skills" },
+  { name: "Experience", href: "#experience" },
+  { name: "Projects", href: "#projects" },
+  { name: "Certificates", href: "#certificates" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState("home");
 
   // Track active section with IntersectionObserver
   useEffect(() => {
-    const sectionIds = NAV_LINKS.map((l) => l.href.replace('#', ''));
+    const sectionIds = NAV_LINKS.map((l) => l.href.replace("#", ""));
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -27,7 +27,7 @@ export default function Navigation() {
         ([entry]) => {
           if (entry.isIntersecting) setActiveSection(id);
         },
-        { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+        { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
       );
       obs.observe(el);
       observers.push(obs);
@@ -39,18 +39,21 @@ export default function Navigation() {
   // Close mobile menu on Escape key
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsOpen(false);
+      if (e.key === "Escape") setIsOpen(false);
     };
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     e.preventDefault();
     setIsOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+      target.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -60,7 +63,7 @@ export default function Navigation() {
         {/* Brand: ✦ + Name */}
         <a
           href="#home"
-          onClick={(e) => handleLinkClick(e, '#home')}
+          onClick={(e) => handleLinkClick(e, "#home")}
           className="flex items-center gap-2 text-[#0A0A0A] hover:opacity-70 transition-opacity"
         >
           <span className="text-base leading-none select-none">✦</span>
@@ -72,7 +75,7 @@ export default function Navigation() {
         {/* Desktop: All nav links (was missing Certificates) */}
         <div className="hidden md:flex items-center gap-4 lg:gap-6">
           {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.href.replace('#', '');
+            const isActive = activeSection === link.href.replace("#", "");
             return (
               <a
                 key={link.name}
@@ -80,8 +83,8 @@ export default function Navigation() {
                 onClick={(e) => handleLinkClick(e, link.href)}
                 className={`text-[11px] font-semibold tracking-widest uppercase transition-colors relative ${
                   isActive
-                    ? 'text-[#0A0A0A]'
-                    : 'text-[#0A0A0A]/50 hover:text-[#0A0A0A]'
+                    ? "text-[#0A0A0A]"
+                    : "text-[#0A0A0A]/50 hover:text-[#0A0A0A]"
                 }`}
               >
                 {link.name}
@@ -89,7 +92,7 @@ export default function Navigation() {
                   <motion.span
                     layoutId="nav-active-dot"
                     className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0A0A0A]"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
               </a>
@@ -101,7 +104,7 @@ export default function Navigation() {
         <div className="hidden md:flex items-center">
           <a
             href="#contact"
-            onClick={(e) => handleLinkClick(e, '#contact')}
+            onClick={(e) => handleLinkClick(e, "#contact")}
             className="flex items-center gap-2.5 bg-[#0A0A0A] text-[#F0EFE9] px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-[#1A1A1A] transition-colors shadow-sm"
           >
             <span className="w-2 h-2 rounded-full bg-[#4EFE88] animate-pulse-dot shrink-0" />
@@ -139,11 +142,13 @@ export default function Navigation() {
             <div className="flex items-center justify-between border-b border-black/10 pb-5">
               <a
                 href="#home"
-                onClick={(e) => handleLinkClick(e, '#home')}
+                onClick={(e) => handleLinkClick(e, "#home")}
                 className="flex items-center gap-2 text-[#0A0A0A]"
               >
                 <span className="text-base leading-none">✦</span>
-                <span className="font-serif italic text-xl text-[#0A0A0A]">Alan Sherhan.</span>
+                <span className="font-serif italic text-xl text-[#0A0A0A]">
+                  Alan Sherhan.
+                </span>
               </a>
               <button
                 onClick={() => setIsOpen(false)}
@@ -158,7 +163,7 @@ export default function Navigation() {
             {/* Links list */}
             <div className="flex flex-col gap-2 my-auto py-8">
               {NAV_LINKS.map((link, i) => {
-                const isActive = activeSection === link.href.replace('#', '');
+                const isActive = activeSection === link.href.replace("#", "");
                 return (
                   <motion.a
                     key={link.name}
@@ -168,7 +173,9 @@ export default function Navigation() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.06 }}
                     className={`text-4xl sm:text-5xl font-bold font-display transition-colors flex items-center gap-3 group py-2 ${
-                      isActive ? 'text-[#0A0A0A]' : 'text-[#0A0A0A]/40 hover:text-[#0A0A0A]'
+                      isActive
+                        ? "text-[#0A0A0A]"
+                        : "text-[#0A0A0A]/40 hover:text-[#0A0A0A]"
                     }`}
                   >
                     <span>{link.name}</span>
@@ -181,16 +188,43 @@ export default function Navigation() {
             {/* Drawer bottom */}
             <div className="border-t border-black/10 pt-5 flex flex-col gap-3">
               <div>
-                <p className="text-xs uppercase tracking-widest text-[#6B6B65] mb-1 font-mono">Contact</p>
-                <p className="text-[#0A0A0A] text-base font-medium">alansherhan10@gmail.com</p>
+                <p className="text-xs uppercase tracking-widest text-[#6B6B65] mb-1 font-mono">
+                  Contact
+                </p>
+                <p className="text-[#0A0A0A] text-base font-medium">
+                  me@alansherhan.dev
+                </p>
                 <p className="text-[#6B6B65] text-sm">Kerala, India</p>
               </div>
               <div className="flex gap-4 text-sm font-medium text-[#6B6B65]">
-                <a href="https://github.com/Alansherhan" target="_blank" rel="noopener noreferrer" className="hover:text-[#0A0A0A] transition-colors">/ GitHub</a>
-                <a href="https://linkedin.com/in/alansherhan" target="_blank" rel="noopener noreferrer" className="hover:text-[#0A0A0A] transition-colors">/ LinkedIn</a>
-                <a href={`${import.meta.env.BASE_URL}Resume.pdf`} target="_blank" rel="noopener noreferrer" className="hover:text-[#0A0A0A] transition-colors">/ Resume</a>
+                <a
+                  href="https://github.com/Alansherhan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#0A0A0A] transition-colors"
+                >
+                  / GitHub
+                </a>
+                <a
+                  href="https://linkedin.com/in/alansherhan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#0A0A0A] transition-colors"
+                >
+                  / LinkedIn
+                </a>
+                <a
+                  href={`${import.meta.env.BASE_URL}Resume.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#0A0A0A] transition-colors"
+                >
+                  / Resume
+                </a>
               </div>
-              <p className="text-xs font-mono text-[#9A9A93]">©2026 ALAN SHERHAN K P — ALL RIGHTS RESERVED</p>
+              <p className="text-xs font-mono text-[#9A9A93]">
+                ©2026 ALAN SHERHAN K P — ALL RIGHTS RESERVED
+              </p>
             </div>
           </motion.div>
         )}
